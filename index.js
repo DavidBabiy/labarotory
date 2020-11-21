@@ -1,18 +1,25 @@
-console.log(customCosinus(2.2));
+console.log("Area equals: " + getArea(5, 25, 30));
 
-function customCosinus(x) {
-    x = Math.pow(x, 2);
-    let cos = 0.;
-    for (let i = 0; i < 100; i++) {
-        cos += (Math.pow(-1, i)*(Math.pow(x, 2*i)))/factorial(2*i);
-    }
-    return cos;
+let n;
+let e = 0.0001;
+let I1;
+let I2;
+
+for (n = 1; n > 0; n++) {
+    I1 = getArea(5, 25, n);
+    I2 = getArea(5, 25, n * 2);
+    if (Math.abs(I2 - I1) / 3 < e) break;
 }
 
-function factorial(n) {
-    let res = 1;
-    for (let i = 1; i <= n; i++) {
-        res = res*i;
+console.log("Minimal amount of intervals is: " + n);
+
+function getArea(a, b, n) {
+    let I = 0.;
+    let h = (b - a) / n;
+    for (let x = a; x < b - h; x += h) {
+        let d = 1. / 3.;
+        I += (Math.PI - Math.pow(x + h / 2, 2)) * Math.sin(Math.pow(2.1 + x + h / 2, d));
     }
-    return res;
+    I = I * h;
+    return I;
 }
