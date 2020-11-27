@@ -1,25 +1,46 @@
-console.log("Area equals: " + getArea(5, 25, 30));
+//Method bisection
+let fx = 0., x = 0., e = 0.001;
+let a = -1., b = 2.;
+let amount = 0;
 
-let n;
-let e = 0.0001;
-let I1;
-let I2;
+for (; ;) {
+    x = (a + b) / 2.;
+    fx = myFunc(x);
+    amount++;
+    if (fx == 0 || fx < e || (b - a) < 2 * e) {
+        break;
+    } else {
+        if (fx > 0) {
+            b = x;
+        } else {
+            a = x;
+        }
+    }
 
-for (n = 1; n > 0; n++) {
-    I1 = getArea(5, 25, n);
-    I2 = getArea(5, 25, n * 2);
-    if (Math.abs(I2 - I1) / 3 < e) break;
 }
 
-console.log("Minimal amount of intervals is: " + n);
+console.log("Method bisection");
+console.log("x = " + x);
+console.log("fx = " + fx);
+console.log("amount = " + amount);
 
-function getArea(a, b, n) {
-    let I = 0.;
-    let h = (b - a) / n;
-    for (let x = a; x < b - h; x += h) {
-        let d = 1. / 3.;
-        I += (Math.PI - Math.pow(x + h / 2, 2)) * Math.sin(Math.pow(2.1 + x + h / 2, d));
-    }
-    I = I * h;
-    return I;
+//Method chord
+a = -1.;
+b = 2.;
+amount = 0;
+let X = [];
+X[0] = (a + b) / 2;
+X[1] = X[0] - (myFunc(X[0]) * (b - X[0])) / (myFunc(b) - myFunc(X[0]));
+while (Math.abs(X[amount + 1] - X[amount]) > e) {
+    amount++;
+    X[amount + 1] = X[amount] - (myFunc(X[amount]) * (b - X[amount])) / (myFunc(b) - myFunc(X[amount]));
+}
+
+console.log("\nMethod chord");
+console.log("x = " + X[amount + 1]);
+console.log("Fx = " + myFunc(X[amount + 1]));
+console.log("Amount = " + amount + 1);
+
+function myFunc(x) {
+    return 2 * Math.pow(Math.cos(x), 4) - 4 * Math.cos(x);
 }
