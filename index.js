@@ -62,7 +62,7 @@ function inaccuracy(x, n, xArr, fxArr, F) {
     let xNew = [];
     xNew.push(x);
     for (let i = 0; i < n; i++) {
-        xNew.push(String.valueOf(xArr[i]));
+        xNew.push(xArr[i]);
     }
     for (let i = 1; i < xNew.length; i++) {
         let v = 1;
