@@ -1,3 +1,5 @@
+const plotlib = require('nodeplotlib');
+
 let x = [-5,3,-3,13,-2,9,6,19,-7,3,-2,14,-6,-1,-2,11,-8,-3,-4,13,7,8,4,16,8,5,4,21,5,8,9,9];
 let y = [1,-1,1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,-1,1,1,1,1,1,1,1,1,-1,-1,1,-1,1,1,1,-1,1];
 let X = [];
@@ -41,7 +43,19 @@ for (let j = 0; j < x.length; j++) {
     Fxy = Fxy / y.length;
     FxxList.push(Fxx);
     FxyList.push(Fxy);
-    plot()
 }
+const dataFxx = [{
+    x: graph,
+    y: FxxList,
+    type: 'Pie charts'
+}];
+const dataFxy = [{
+    x: graph,
+    y: FxyList,
+    type: 'Pie charts'
+}];
+
+plotlib.plot(dataFxx);
+plotlib.plot(dataFxy);
 console.log("Fxx = " + FxxList);
 console.log("Fxy = " + FxyList);
