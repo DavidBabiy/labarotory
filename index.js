@@ -1,40 +1,47 @@
-let a = -2.;
-let b = 1.;
-let e = .005;
+let x = [-5,3,-3,13,-2,9,6,19,-7,3,-2,14,-6,-1,-2,11,-8,-3,-4,13,7,8,4,16,8,5,4,21,5,8,9,9];
+let y = [1,-1,1,1,-1,-1,-1,1,1,-1,-1,-1,-1,1,-1,1,1,1,1,1,1,1,1,-1,-1,1,-1,1,1,1,-1,1];
+let X = [];
+let Y = [];
 
-let x = .0;
-let s = 0;
+for (let i = 0; i < x.length; i++) {
+    X[i] = x[i];
+    Y[i] = y[i];
+    X[i + x.length] = x[i];
+    Y[i + y.length] = y[i];
+}
 
-let h = (b - a);
+let FxxList = [];
+let FxyList = [];
+let graph = []
+let counter = 0;
 
-for (; ;) {
-    x = a + (h / 2);
-    s = sign(x);
-    if (s === 0) {
-        break;
-    } else {
-        b = x;
-        h = x - a;
-        if (h < e) {
-            break;
+for (let j = 0; j < x.length; j++) {
+    counter++;
+    graph.push(counter);
+    counter++;
+    graph.push(counter);
+    let Fxx = 0., Fxy = 0.;
+    let z = 0., zY = 0.;
+    for (let i = 0; i < y.length; i++) {
+        if (x[i] <= X[i + j]) {
+            z = x[i];
+        } else {
+            z = X[i + j];
         }
+        if (x[i] <= Y[i + j]) {
+            zY = x[i];
+        } else {
+            zY = Y[i + j];
+        }
+        Fxx += z;
+        Fxy += zY;
     }
+
+    Fxx = Fxx / x.length;
+    Fxy = Fxy / y.length;
+    FxxList.push(Fxx);
+    FxyList.push(Fxy);
+    plot()
 }
-console.log("x = " + x);
-
-function Fx(x) {
-    return 15*Math.pow(x, 4) - 3*x*x;
-}
-
-function fx(x) {
-    return 3*Math.pow(x, 5) - Math.pow(x, 3) + 12;
-}
-
-function sign(x) {
-    let res = Fx(x);
-    if (res === 0) return 0;
-    else if (res > 0) return 1;
-    else return -1;
-}
-
-
+console.log("Fxx = " + FxxList);
+console.log("Fxy = " + FxyList);
