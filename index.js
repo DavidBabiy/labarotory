@@ -1,25 +1,23 @@
-console.log("Area equals: " + getArea(5, 25, 30));
-
-let n;
+let a = [[1.5, -2], [3, -1]];
+let b = [4, 5];
+let x = [0, 0];
 let e = 0.0001;
-let I1;
-let I2;
+let k = 0;
 
-for (n = 1; n > 0; n++) {
-    I1 = getArea(5, 25, n);
-    I2 = getArea(5, 25, n * 2);
-    if (Math.abs(I2 - I1) / 3 < e) break;
-}
-
-console.log("Minimal amount of intervals is: " + n);
-
-function getArea(a, b, n) {
-    let I = 0.;
-    let h = (b - a) / n;
-    for (let x = a; x < b - h; x += h) {
-        let d = 1. / 3.;
-        I += (Math.PI - Math.pow(x + h / 2, 2)) * Math.sin(Math.pow(2.1 + x + h / 2, d));
+console.log("true");
+let xx = x;
+while (true) {
+    x[0] = (b[0] - a[0][1] * xx[1]) / a[0][0];
+    x[1] = (b[1] - a[1][0] * xx[0]) / a[1][1];
+    k++;
+    if (Math.abs(x[0] - xx[0]) < e && Math.abs(x[1] - xx[1]) < e) {
+        break;
+    } else {
+        xx = x;
     }
-    I = I * h;
-    return I;
 }
+console.log("k = " + k);
+for (let i = 0; i < x.length; i++) {
+    console.log(`x[${i + 1}] = ${x[i]}`);
+}
+
